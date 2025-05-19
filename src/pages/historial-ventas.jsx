@@ -5,17 +5,19 @@ import { getHistorialVentas } from "../services/historial-ventas.service";
 
 function HistorialVentas() {
   const [ventas, setVentas] = useState([]);
-const [ filtroMetodopago ,  setfiltroMetodopago ] = useState("Todas");
+  const[ paginaActual , setPaginaActual] = useState(1);
+  const ventasPorPagina = 10;
+  const [ filtroMetodopago ,  setfiltroMetodopago ] = useState("Todas");
 
+  const indiceUltimaVenta = paginaActual * ventasPorPagina;
+  const indicePrimeraVenta = indiceUltimaVenta - ventasPorPagina;
+  const ventasActuales = ventas.slice(indicePrimeraVenta, indiceUltimaVenta);
+  const totalPaginas = Math.ceil(ventas.length / ventasPorPagina); 
 
   async function obtenerVentas() {
-    const res = await getHistorialVentas();
-    
+    const res = await getHistorialVentas();  
     setVentas(res);
-
-  }
-
-  
+  } 
   useEffect(() => {
     obtenerVentas();
   }, []);
@@ -81,7 +83,7 @@ const [ filtroMetodopago ,  setfiltroMetodopago ] = useState("Todas");
               </tr>
             </thead>
             <tbody className="text-black bg-blue-500 ">
-              {ventasFiltradas.map((venta, index) => (
+              {ventasActuales.map((venta, index) => (
                 <tr key={index}>
                   <td className="bg-gray-400 font-medium">{venta.id}</td>
                   <td className="whitespace-nowrap">{venta.cliente}</td>
@@ -106,6 +108,34 @@ const [ filtroMetodopago ,  setfiltroMetodopago ] = useState("Todas");
               ))}
             </tbody>
           </table>
+          <div className="flex justify-center mt-4 gap-2">
+  <button
+    className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+    onClick={() => setPaginaActual((prev) => Math.max(prev - 1, 1))}
+    disabled={paginaActual === 1}
+  >
+    Anterior
+  </button>
+
+  {[...Array(totalPaginas)].map((_, index) => (
+    <button
+      key={index}
+      className={`px-3 py-1 rounded ${paginaActual === index + 1 ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+      onClick={() => setPaginaActual(index + 1)}
+    >
+      {index + 1}
+    </button>
+  ))}
+
+  <button
+    className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+    onClick={() => setPaginaActual((prev) => Math.min(prev + 1, totalPaginas))}
+    disabled={paginaActual === totalPaginas}
+  >
+    Siguiente
+  </button>
+</div>
+
         </div>
      {/*  </div> */}
     </>

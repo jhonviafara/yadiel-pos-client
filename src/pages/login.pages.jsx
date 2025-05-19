@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/logo_pdv.png";
+import Logo from "../assets/logo.png";
 import StyledButton from "../components/StyledButton";
 import StyledInput from "../components/StyledInput";
 
@@ -94,7 +94,7 @@ function Login() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-950 flex justify-center items-center px-4">
       <div className="bg-white/5 backdrop-blur-lg border border-gray-600 shadow-2xl rounded-2xl p-10 max-w-md w-full space-y-6">
-      <img src={Logo} alt="logo" className="w-60 h-50 mx-auto   " />
+      <img src={Logo} alt="logo" className="w-40 h-40 mx-auto rounded-full border-4 border-white shadow-lg object-cover   " />
      
     
          {isRegistering ? (

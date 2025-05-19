@@ -299,11 +299,10 @@ function IngresarVenta() {
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-lg w-full md:w-11/12 lg:w-4/5 flex flex-col lg:flex-row gap-6">
-          <div className="w-full lg:w-1/2 flex flex-col gap-4">
+          <div className="w-full lg:w-1/2 flex flex-col gap-4 text-lg font-semibold text-black">
             <h1 className="text-3xl font-bold text-center text-gray-600">Registrar Venta</h1>
-
             <div>
-              <h3 className="text-lg font-semibold text-black mb-3">Agregar Producto</h3>
+              <h3 className="text-lg font-semibold text-black mb-1">Agregar Producto</h3>
               <div className="flex gap-3 flex-wrap">
                 <StyledInput
                   name="producto"
@@ -331,8 +330,8 @@ function IngresarVenta() {
                     </ul>
                   </div>
                 )}
-               
-               <label htmlFor="cantidadProducto">cantidad:</label>
+               <div>
+               <label htmlFor="cantidadProducto" >cantidad:</label>
                 <StyledInput
                   name="cantidadProduct"
                   type="number"
@@ -342,11 +341,13 @@ function IngresarVenta() {
                   onChange={(e) => setCantidad(Math.max(1, Number(e.target.value)))}
                   className="w-24"
                 />
-                <StyledButton
+               <StyledButton
                   innerText="Añadir al Carrito"
                   onClick={agregarProducto}
                   className="bg-green-700 mt-5 hover:bg-green-600 text-white rounded-xl px-4 py-2 text-center flex items-center justify-center w-fit h-fit"
                 />
+                 </div>
+             
               </div>
             </div>
 

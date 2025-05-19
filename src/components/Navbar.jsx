@@ -1,86 +1,65 @@
-import { Link, Navigate, useLocation } from "react-router-dom";
-import logo from "../assets/logo_pdv.png";
-import StyledButton from "./StyledButton";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai"; // Home icon
+import LogoutButton from "./logout";
 
 const links = [
-  {
-    text: "Inventario",
-    path: "/inventario",
-  },
-  {
-    text: "Historial Ventas",
-    path: "/historial-ventas",
-  },
-  {
-    text: "añadir Productos",
-    path: "/añadir-productos",
-  },{
-    text: "iniciar ventas",
-    path: "/iniciar-ventas",
-  }
-
+  { text: "Inventario", path: "/inventario" },
+  { text: "Historial Ventas", path: "/historial-ventas" },
+  { text: "Iniciar Ventas", path: "/iniciar-ventas" },
 ];
 
 function Navbar() {
-  const nombreUs =
-    (localStorage.getItem("nombreUsuario") &&
-      localStorage.getItem("nombreUsuario").split("")[0]) ||
-    "J";
-  const apellidoUs =
-    (localStorage.getItem("apellidoUsuario") &&
-      localStorage.getItem("apellidoUsuario").split("")[0]) ||
-    "P";
-  // console.log(nombreUs, apellidoUs);
+  const nombreUs = (localStorage.getItem("nombreUsuario") || "J")[0];
+  const apellidoUs = (localStorage.getItem("apellidoUsuario") || "P")[0];
   const location = useLocation();
 
   return (
-    <div className="navbar bg-gray-500 sticky top-0 z-40">
-      <div className="flex-1">
+    <nav className="bg-gray-600 text-white sticky top-0 z-50 shadow-md">
+      <div className="max-w-screen-xl mx-auto px-4 py-2 flex items-center justify-between">
         
-        <Link to={"/home"} className="w-16">
-          <img className="w-full" src={logo} alt="" />
+        {/* Ícono Home */}
+        <Link to="/home" className="text-white hover:text-blue-400 text-2xl">
+          <AiFillHome />
         </Link>
-      </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1 gap-2">
+
+        {/* Links del centro */}
+        <ul className="hidden md:flex gap-4">
           {links.map((link, index) => (
             <li key={index}>
               <Link
-                className="btn min-w-50 bg-blue-700  border-gray-300 text-gray-200 hover:bg-blue-900 hover:text-white  hover:border-white hover:decoration-white "
                 to={link.path}
+                className={`px-4 py-2 rounded-md transition-all duration-200 ${
+                  location.pathname === link.path
+                    ? "bg-blue-600 text-white"
+                    : "hover:bg-blue-700 hover:text-white text-gray-300"
+                }`}
               >
                 {link.text}
               </Link>
             </li>
           ))}
-          <div className="dropdown dropdown-end  flex">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar border border-white"
-            >
-              {nombreUs}
-              {apellidoUs}
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-blue-700 rounded-box z-[1] mt-3 w-52 p-2 shadow text-white"
-            >
-              <li>
-                <a className="justify-between">Profile</a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
         </ul>
+
+        {/* Usuario (iniciales + dropdown) */}
+        <div className="dropdown dropdown-end">
+          <div
+            tabIndex={0}
+            className="btn btn-ghost btn-circle avatar bg-blue-600 text-white hover:bg-blue-700"
+          >
+            {nombreUs}
+            {apellidoUs}
+          </div>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-gray-700 rounded-box w-52 text-white"
+          >
+            <li><a>Perfil</a></li>
+            <li><a>Configuración</a></li>
+            <li><a onClick={LogoutButton } >Cerrar sesión</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
