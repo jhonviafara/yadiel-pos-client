@@ -8,6 +8,7 @@ import {
   FaCashRegister
 } from "react-icons/fa";
 import LogoutButton from "../components/logout";
+import Saldo_caja from "../components/cash_on_box";
 
 function Home() {
 
@@ -23,8 +24,9 @@ function Home() {
    
   <>
   
-    <div className="bg-gradient-to-br from-gray-800 via-slate-900 to-gray-600  w-full min-h-screen flex items-center justify-center">
+    <div className="bg-gradient-to-br from-gray-800 via-slate-1000 to-gray-600  w-full min-h-screen flex items-center justify-center">
     <LogoutButton />
+    < Saldo_caja />
      
      <div className="bg-white p-7 rounded-xl shadow-lg w-12/12 md:w-2/3 lg:w-1/2 flex flex-col gap-4">
       <h1 className="text-3xl font-bold text-center text-gray-800">Panel Principal</h1>

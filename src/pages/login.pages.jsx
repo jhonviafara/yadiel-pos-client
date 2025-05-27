@@ -45,9 +45,8 @@ function Login() {
           sessionStorage.setItem("rol", rol);
           sessionStorage.setItem("idUser", id);  
           sessionStorage.setItem("comercioId",idcomercio );
-          console.log("Token guardado en sessionStorage:", sessionStorage.getItem("idUser"));
+          // Redirigir al usuario a la página de inicio
           
-          alert("Usuario y token registrados con éxito");
         }
 
         return navigate("/home");

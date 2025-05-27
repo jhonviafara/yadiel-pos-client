@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai"; // Home icon
 import LogoutButton from "./logout";
 
+
 const links = [
   { text: "Inventario", path: "/inventario" },
   { text: "Historial Ventas", path: "/historial-ventas" },
@@ -21,7 +22,7 @@ function Navbar() {
         <Link to="/home" className="text-white hover:text-blue-400 text-2xl">
           <AiFillHome />
         </Link>
-
+        
         {/* Links del centro */}
         <ul className="hidden md:flex gap-4">
           {links.map((link, index) => (

@@ -120,12 +120,10 @@ function IngresarVenta() {
       })),// Reemplazar con ID real del comercio
       pagos: pagos.filter((p) => p.monto > 0),
       total,
+      cambio,
       fecha,
     };
-    console.log(venta);
-    
-    
-
+   
 
     try {
       const response = await fetch("http://localhost:3001/ventas", {

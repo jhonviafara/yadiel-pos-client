@@ -9,23 +9,28 @@ function HistorialVentas() {
   const ventasPorPagina = 10;
   const [ filtroMetodopago ,  setfiltroMetodopago ] = useState("Todas");
 
+  const ventasFiltradas = ventas.filter((venta)=>{
+    if(filtroMetodopago === "Todas")return true;
+    
+    return venta.metodo_pago?.toLocaleLowerCase().includes(filtroMetodopago.toLocaleLowerCase()); ;
+   }
+  );
+  
   const indiceUltimaVenta = paginaActual * ventasPorPagina;
   const indicePrimeraVenta = indiceUltimaVenta - ventasPorPagina;
-  const ventasActuales = ventas.slice(indicePrimeraVenta, indiceUltimaVenta);
+  const ventasActuales = ventasFiltradas.slice(indicePrimeraVenta, indiceUltimaVenta);
   const totalPaginas = Math.ceil(ventas.length / ventasPorPagina); 
 
   async function obtenerVentas() {
     const res = await getHistorialVentas();  
-    setVentas(res);
+    setVentas(res); 
+
+       
   } 
   useEffect(() => {
     obtenerVentas();
   }, []);
- const ventasFiltradas = ventas.filter((venta)=>{
-  if(filtroMetodopago === "Todas")return true;
-  return venta.metodo_pago?.toLocaleLowerCase().includes(filtroMetodopago.toLocaleLowerCase()); ;
- }
-);
+
 
 
 
@@ -92,7 +97,8 @@ function HistorialVentas() {
                     {venta.total_venta.toLocaleString('es-AR',{
                             style: 'currency',
                             currency: 'ARS',
-                      })}
+                      }
+                      )}
                   </td>
                   <td className="whitespace-nowrap">{venta.fecha}</td>
                   <td className="whitespace-nowrap">{venta.hora}</td>
